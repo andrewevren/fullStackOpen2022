@@ -3,8 +3,10 @@ const Total = ({ parts }) => {
 
     const sum = (a,b) => a+b
 
+    const sumArr = arr => arr.reduce(sum, 0)
+
     return (
-        <h3>total of {exercises.reduce(sum, 0)} exercises</h3>
+        <h3>total of {sumArr(exercises)} exercises</h3>
     )
 }
 
