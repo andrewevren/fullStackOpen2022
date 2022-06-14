@@ -14,8 +14,19 @@ const handleClick = e => {
     name: newName
   }
 
-  setPersons(persons.concat(newObject))
-  setNewName('')
+  const checkDuplicates = () => {
+    for (const person of persons) {
+      if (person.name == newName) return true
+    }
+    return false
+  }
+
+  if (checkDuplicates()) {
+    alert(`${newName} is already added to phonebook`)
+  } else {
+    setPersons(persons.concat(newObject))
+    setNewName('')
+  }
 }
 
   return (
