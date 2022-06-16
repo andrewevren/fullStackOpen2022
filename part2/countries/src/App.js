@@ -23,8 +23,8 @@ const App = () => {
 
   return (
     <div>
-      <Search value={filter} onChange={handleChange}/>
-      <Body filter={filter} data={data} onClick={handleClick}/>
+      <Search value={filter} onChange={handleChange} />
+      <Body filter={filter} data={data} onClick={handleClick} />
     </div>
   )
 }
