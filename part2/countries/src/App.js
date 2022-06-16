@@ -19,10 +19,12 @@ const App = () => {
 
   const handleChange = e => setFilter(e.target.value)
 
+  const handleClick = e => setFilter(e.target.value)
+
   return (
     <div>
       <Search value={filter} onChange={handleChange}/>
-      <Body filter={filter} data={data}/>
+      <Body filter={filter} data={data} onClick={handleClick}/>
     </div>
   )
 }

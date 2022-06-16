@@ -7,7 +7,7 @@ const Body = (props) => {
 
     if (toShow.length > 10) return <div>Too many matches, specify another filter</div>
     
-    if (toShow.length > 1) return <ResultList toShow={toShow} />
+    if (toShow.length > 1) return <ResultList toShow={toShow} onClick={props.onClick}/>
 
     if (toShow.length === 1) return <CountryData country={toShow[0]} />
 }
