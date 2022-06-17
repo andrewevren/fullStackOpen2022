@@ -16,6 +16,11 @@ const remove = id => {
     return request.then(response => response.data)
 }
 
-const backEndService = { getAll, create, remove }
+const replace = changedObject => {
+    const request = axios.put(baseurl.concat(`/${changedObject.id}`),changedObject)
+    return request.then(response => response.data)
+}
+
+const backEndService = { getAll, create, remove, replace }
 
 export default backEndService

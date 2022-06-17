@@ -26,15 +26,23 @@ const App = () => {
   const handleClick = e => {
     e.preventDefault()
 
-    const checkDuplicates = () => {
-      for (const person of persons) {
-        if (person.name === newName) return true
-      }
-      return false
-    }
+    const oldPerson = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
 
-    if (checkDuplicates()) {
-      alert(`${newName} is already added to phonebook`)
+    if (oldPerson) {
+      if (window.confirm(`${oldPerson.name} is already added to phonebook, replace the old number with a new one?`)) {
+        const changedObject = {...oldPerson, number: newNumber}
+
+        backEndService.replace(changedObject)
+          .then(returnedObject => {
+            setPersons(persons.map(p => p.id !== changedObject.id 
+              ? p : returnedObject))
+            setNewName('')
+            setNewNumber('')
+          })
+      } else {
+        setNewName('')
+        setNewNumber('')
+      }
     } else {
       const newObject = {
         name: newName,
