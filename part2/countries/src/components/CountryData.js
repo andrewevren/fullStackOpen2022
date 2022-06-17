@@ -6,14 +6,14 @@ const CountryData = ({country}) => {
     const [weatherData, setWeatherData] = useState(
         {weather:[{description:null, icon:null}],main:{temp:null},wind:{speed:null}}
       )
-    const api_key = process.env.REACT_APP_API_KEY
-
 
     useEffect(() => {
+        const api_key = process.env.REACT_APP_API_KEY
+
         axios
             .get(`https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&appid=${api_key}&units=metric`)
             .then(response => {setWeatherData(response.data)})
-    })
+    },[])
 
     return (
         <div>

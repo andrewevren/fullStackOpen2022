@@ -9,7 +9,7 @@ const Body = (props) => {
     
     if (toShow.length > 1) return <ResultList toShow={toShow} onClick={props.onClick}/>
 
-    if (toShow.length === 1) return <CountryData country={toShow[0]} />
+    if (toShow.length === 1) return <CountryData country={toShow[0]}/>
 }
 
 export default Body
