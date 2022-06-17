@@ -11,6 +11,11 @@ const create = newObject => {
     return request.then(response => response.data)
 }
 
-const backEndService = { getAll, create }
+const remove = id => {
+    const request = axios.delete(baseurl.concat(`/${id}`))
+    return request.then(response => response.data)
+}
+
+const backEndService = { getAll, create, remove }
 
 export default backEndService

@@ -56,6 +56,13 @@ const App = () => {
     : persons.filter(person =>
       person.name.toLowerCase().includes(newFilter.toLowerCase()))
 
+  const deletePerson = (id,name) => {
+    if (window.confirm(`Delete ${name}?`)) {
+      backEndService.remove(id)
+        .then(setPersons(persons.filter(p => p.id !== id)))
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -66,7 +73,7 @@ const App = () => {
         handleNumberChange={handleNumberChange} newNumber={newNumber}
         handleClick={handleClick} />
       <h3>Numbers</h3>
-      <Persons personsToShow={personsToShow} />
+      <Persons personsToShow={personsToShow} deletePerson={deletePerson}/>
     </div>
   )
 }
