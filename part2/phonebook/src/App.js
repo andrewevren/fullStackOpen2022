@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 
+import Notification from './components/Notification'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
@@ -10,6 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     backEndService.getAll()
@@ -22,6 +24,13 @@ const App = () => {
   const handleNumberChange = e => setNewNumber(e.target.value)
 
   const handleFilterChange = e => setNewFilter(e.target.value)
+
+  const displayMessage = newMessage => {
+    setMessage(newMessage)
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
+  }
 
   const handleClick = e => {
     e.preventDefault()
@@ -36,6 +45,7 @@ const App = () => {
           .then(returnedObject => {
             setPersons(persons.map(p => p.id !== changedObject.id 
               ? p : returnedObject))
+            displayMessage(`Contact number changed for ${changedObject.name}`)
             setNewName('')
             setNewNumber('')
           })
@@ -53,9 +63,18 @@ const App = () => {
       backEndService.create(newObject)
         .then(returnedObject => {
           setPersons(persons.concat(returnedObject))
+          displayMessage(`Added ${newObject.name}`)
           setNewName('')
           setNewNumber('')
       })
+    }
+  }
+
+  const deletePerson = (id,name) => {
+    if (window.confirm(`Delete ${name}?`)) {
+      backEndService.remove(id)
+        .then(setPersons(persons.filter(p => p.id !== id)))
+      displayMessage(`Deleted ${name}`)
     }
   }
 
@@ -64,16 +83,10 @@ const App = () => {
     : persons.filter(person =>
       person.name.toLowerCase().includes(newFilter.toLowerCase()))
 
-  const deletePerson = (id,name) => {
-    if (window.confirm(`Delete ${name}?`)) {
-      backEndService.remove(id)
-        .then(setPersons(persons.filter(p => p.id !== id)))
-    }
-  }
-
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message}/>
       <Filter onChange={handleFilterChange} value={newFilter} />
       <h3>Add a new</h3>
       <PersonForm 
