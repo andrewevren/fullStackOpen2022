@@ -12,6 +12,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
   const [message, setMessage] = useState(null)
+  const [errorMessage, setError] = useState(null)
 
   useEffect(() => {
     backEndService.getAll()
@@ -27,9 +28,16 @@ const App = () => {
 
   const displayMessage = newMessage => {
     setMessage(newMessage)
-            setTimeout(() => {
-              setMessage(null)
-            }, 5000)
+    setTimeout(() => {
+      setMessage(null)
+    }, 5000)
+  }
+
+  const displayError = newMessage => {
+    setError(newMessage)
+    setTimeout(() => {
+      setError(null)
+    }, 5000)
   }
 
   const handleClick = e => {
@@ -49,6 +57,10 @@ const App = () => {
             setNewName('')
             setNewNumber('')
           })
+          .catch(() => {
+            displayError(`${changedObject.name} has already been deleted from the server`)
+            setPersons(persons.filter(p => p.id !== changedObject.id))
+          })
       } else {
         setNewName('')
         setNewNumber('')
@@ -56,8 +68,7 @@ const App = () => {
     } else {
       const newObject = {
         name: newName,
-        number: newNumber,
-        id: persons.length + 1
+        number: newNumber
       }
 
       backEndService.create(newObject)
@@ -73,10 +84,15 @@ const App = () => {
   const deletePerson = (id,name) => {
     if (window.confirm(`Delete ${name}?`)) {
       backEndService.remove(id)
-        .then(setPersons(persons.filter(p => p.id !== id)))
-      displayMessage(`Deleted ${name}`)
-    }
-  }
+        .then(() => {
+          setPersons(persons.filter(p => p.id !== id))
+          displayMessage(`Deleted ${name}`)
+        })
+        .catch(() => {
+          displayError(`${name} has already been deleted from the server`)
+          setPersons(persons.filter(p => p.id !== id))
+    })
+  }}
 
   const personsToShow = newFilter===''
     ? persons
@@ -86,7 +102,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={message}/>
+      <Notification message={message} errorMessage={errorMessage} />
       <Filter onChange={handleFilterChange} value={newFilter} />
       <h3>Add a new</h3>
       <PersonForm 
@@ -94,7 +110,7 @@ const App = () => {
         handleNumberChange={handleNumberChange} newNumber={newNumber}
         handleClick={handleClick} />
       <h3>Numbers</h3>
-      <Persons personsToShow={personsToShow} deletePerson={deletePerson}/>
+      <Persons personsToShow={personsToShow} deletePerson={deletePerson} />
     </div>
   )
 }
