@@ -61,6 +61,18 @@ test('likes set to 0 by default', async () => {
     expect(response.body.likes).toEqual(0)
 })
 
+test('cannot post blogs without title and url', async () => {
+    const newPost = {
+        author: 'Babu Frik',
+        likes: 13
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newPost)
+        .expect(400)
+})
+
 afterAll(() => {
     mongoose.connection.close()
 })
