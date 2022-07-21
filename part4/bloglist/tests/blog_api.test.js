@@ -78,7 +78,7 @@ describe('making a post request', () => {
 })
 
 describe('making delete request', () => {
-    test('deleting first saved note', async () => {
+    test('deleting first saved blog', async () => {
         const initialNotes = await helper.blogsInDb()
         
         const noteToDelete = initialNotes[0]
@@ -90,6 +90,35 @@ describe('making delete request', () => {
         const notesAtEnd = await helper.blogsInDb()
 
         expect(notesAtEnd).not.toContainEqual(noteToDelete)
+    })
+    test('catches error with request to nonExistingId', async () => {
+        const fakeId = await helper.nonExistingId
+        await api
+            .delete(`/api/blogs/${fakeId}`)
+            .expect(500)
+    })
+})
+
+describe('updating blogs through put request', () => {
+    test('updating likes on first blog', async () => {
+        const initialNotes = await helper.blogsInDb()
+        
+        const noteToPatch = initialNotes[0]
+    
+        const newNote = {...noteToPatch, likes: 30}
+
+        const response = await api
+            .put(`/api/blogs/${noteToPatch.id}`)
+            .send(newNote)
+
+        expect(response.body.likes).toEqual(30)
+    })
+    test('catches error with request to nonExistingId', async () => {
+        const fakeId = await helper.nonExistingId
+        await api
+            .put(`/api/blogs/${fakeId}`)
+            .send({title: 'none', author: 'none', url: 'none'})
+            .expect(500)
     })
 })
 
