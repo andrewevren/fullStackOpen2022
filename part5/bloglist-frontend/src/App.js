@@ -21,6 +21,7 @@ const App = () => {
     if (loggedUserJSON) {
       const loggedUser = JSON.parse(loggedUserJSON)
       setUser(loggedUser)
+      blogService.setToken(loggedUser.token)
     }
   }, [])
 
@@ -32,6 +33,7 @@ const App = () => {
 
       window.localStorage.setItem('loggedBloglistUser', JSON.stringify(loggedUser))
       setUser(loggedUser)
+      blogService.setToken(loggedUser.token)
       setUsername('')
       setPassword('')
     } catch (exception) {
@@ -44,6 +46,7 @@ const App = () => {
 
     window.localStorage.removeItem('loggedBloglistUser')
     setUser(null)
+    blogService.setToken(null)
   }
 
   const handleNameChange = e => setUsername(e.target.value)
