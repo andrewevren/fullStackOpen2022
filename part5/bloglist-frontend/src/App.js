@@ -11,6 +11,9 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [notification, setNotification] = useState(null)
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -57,6 +60,21 @@ const App = () => {
   const handleNameChange = e => setUsername(e.target.value)
   const handlePasswordChange = e => setPassword(e.target.value)
 
+  const submitPost = async (event) => {
+    event.preventDefault()
+
+    const newBlog = await blogService.create({title,author,url})
+    console.log(newBlog)
+    setNotification(`new blog posted ${title} by ${author}`)
+    setTitle('')
+    setAuthor('')
+    setUrl('')
+    setTimeout(() => {
+      setNotification(null)
+    },5000)
+    setBlogs(blogs.concat(newBlog))
+  }
+
   return (
     <div>
       <Notification message={notification}/>
@@ -65,7 +83,16 @@ const App = () => {
           username={username} handleNameChange={handleNameChange} 
           password={password} handlePasswordChange={handlePasswordChange} 
           handleLogin={handleLogin} /> :
-        <Bloglist blogs={blogs} user={user} handleLogout={handleLogout} setNotification={setNotification}/>}
+        <Bloglist 
+          blogs={blogs} 
+          user={user} 
+          handleLogout={handleLogout} 
+          setNotification={setNotification}
+          title={title} setTitle={setTitle}
+          author={author} setAuthor={setAuthor}
+          url={url} setUrl={setUrl}
+          submitPost={submitPost}
+          />}
     </div>
   )
 }
