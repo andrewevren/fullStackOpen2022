@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Bloglist from './components/Bloglist'
 import Loginform from './components/Loginform'
+import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -9,6 +10,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -37,11 +39,14 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      console.log('Invalid username or password')
+      setNotification('Invalid username or password')
+      setTimeout(() => {
+        setNotification(null)
+      },5000)
     }
   }
 
-  const handleLogout = async (event) => {
+  const handleLogout = (event) => {
     event.preventDefault()
 
     window.localStorage.removeItem('loggedBloglistUser')
@@ -54,14 +59,14 @@ const App = () => {
 
   return (
     <div>
-    {user === null ?
-      <Loginform 
-        username={username} handleNameChange={handleNameChange} 
-        password={password} handlePasswordChange={handlePasswordChange} 
-        handleLogin={handleLogin} /> :
-      <Bloglist blogs={blogs} user={user} handleLogout={handleLogout} />}
+      <Notification message={notification}/>
+      {user === null ?
+        <Loginform 
+          username={username} handleNameChange={handleNameChange} 
+          password={password} handlePasswordChange={handlePasswordChange} 
+          handleLogin={handleLogin} /> :
+        <Bloglist blogs={blogs} user={user} handleLogout={handleLogout} setNotification={setNotification}/>}
     </div>
-    
   )
 }
 
