@@ -1,5 +1,6 @@
 import Blog from './Blog'
 import Blogform from './Blogform'
+import Toggleable from './Toggleable'
 
 const Bloglist = ({blogs, user, handleLogout, ...formProps}) => (
     <div>
@@ -9,7 +10,9 @@ const Bloglist = ({blogs, user, handleLogout, ...formProps}) => (
             <button onClick={handleLogout}>logout</button>
         </p>
         <h2>create new</h2>
-        <Blogform {...formProps}/>
+        <Toggleable buttonLabel="new blog">
+            <Blogform {...formProps}/>
+        </Toggleable>
         {blogs.map(blog =>
             <Blog key={blog.id} blog={blog} />
         )}

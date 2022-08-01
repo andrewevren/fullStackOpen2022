@@ -92,7 +92,8 @@ const App = () => {
           author={author} setAuthor={setAuthor}
           url={url} setUrl={setUrl}
           submitPost={submitPost}
-          />}
+            />
+      }
     </div>
   )
 }
