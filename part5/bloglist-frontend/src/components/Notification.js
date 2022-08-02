@@ -1,10 +1,10 @@
-const Notification = ({message}) => {
-    if (message) {    
-        return (
-            <p>{message}</p>
+const Notification = ({ message }) => {
+  if (message) {
+    return (
+      <p>{message}</p>
     )}
 
-    return null
+  return null
 }
 
 export default Notification

@@ -15,7 +15,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const App = () => {
     event.preventDefault()
 
     try {
-      const loggedUser = await loginService.login({username,password})
+      const loggedUser = await loginService.login({ username,password })
 
       window.localStorage.setItem('loggedBloglistUser', JSON.stringify(loggedUser))
       setUser(loggedUser)
@@ -76,17 +76,17 @@ const App = () => {
     <div>
       <Notification message={notification}/>
       {user === null ?
-        <Loginform 
-          username={username} handleNameChange={handleNameChange} 
-          password={password} handlePasswordChange={handlePasswordChange} 
+        <Loginform
+          username={username} handleNameChange={handleNameChange}
+          password={password} handlePasswordChange={handlePasswordChange}
           handleLogin={handleLogin} /> :
-        <Bloglist 
-          blogs={blogs} 
-          user={user} 
-          handleLogout={handleLogout} 
+        <Bloglist
+          blogs={blogs}
+          user={user}
+          handleLogout={handleLogout}
           submitPost={submitPost}
           removeBlog={removeBlog}
-            />
+        />
       }
     </div>
   )
