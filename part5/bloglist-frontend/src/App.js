@@ -66,6 +66,12 @@ const App = () => {
     setBlogs(blogs.concat(newBlog))
   }
 
+  const removeBlog = (id) => {
+    blogService.remove(id)
+    const newBlogs = blogs.filter(blog => blog.id !==  id)
+    setBlogs(newBlogs)
+  }
+
   return (
     <div>
       <Notification message={notification}/>
@@ -78,8 +84,8 @@ const App = () => {
           blogs={blogs} 
           user={user} 
           handleLogout={handleLogout} 
-          setNotification={setNotification}
           submitPost={submitPost}
+          removeBlog={removeBlog}
             />
       }
     </div>
