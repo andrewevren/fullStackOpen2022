@@ -72,6 +72,17 @@ const App = () => {
     setBlogs(newBlogs)
   }
 
+  const incrementLikes = (blog) => {
+    const updatedBlog={
+      user: blog.user.id,
+      likes: blog.likes+1,
+      author: blog.author,
+      title: blog.title,
+      url: blog.url
+    }
+    blogService.update(updatedBlog, blog.id)
+  }
+
   return (
     <div>
       <Notification message={notification}/>
@@ -86,6 +97,7 @@ const App = () => {
           handleLogout={handleLogout}
           submitPost={submitPost}
           removeBlog={removeBlog}
+          incrementLikes={incrementLikes}
         />
       }
     </div>

@@ -2,7 +2,7 @@ import Blog from './Blog'
 import Blogform from './Blogform'
 
 
-const Bloglist = ({ blogs, user, handleLogout, submitPost, removeBlog }) => {
+const Bloglist = ({ blogs, user, handleLogout, submitPost, removeBlog, incrementLikes }) => {
   const blogsByLikes = blogs.sort((a,b) => a.likes - b.likes)
 
   return (
@@ -15,7 +15,7 @@ const Bloglist = ({ blogs, user, handleLogout, submitPost, removeBlog }) => {
       <h2>create new</h2>
       <Blogform submitPost={submitPost}/>
       {blogsByLikes.map(blog =>
-        <Blog key={blog.id} blog={blog} user={user} removeBlog={removeBlog}/>
+        <Blog key={blog.id} blog={blog} user={user} removeBlog={removeBlog} incrementLikes={incrementLikes}/>
       )}
     </div>
   )}

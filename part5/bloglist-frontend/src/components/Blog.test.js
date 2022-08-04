@@ -15,7 +15,7 @@ describe('blog display', () => {
       url: 'google.com'
     }
 
-    container = render(<Blog blog={blog} />).container
+    container = render(<Blog blog={blog} incrementLikes/>).container
   })
 
   test('blog renders only blog title and author by default', () => {
@@ -41,5 +41,25 @@ describe('blog display', () => {
     expect(likes).not.toHaveStyle( 'display: none' )
     expect(url).not.toHaveStyle( 'display: none' )
   })
+})
+
+test('incrementLikes is called each time like button is clicked', async () => {
+  const blog = {
+    title: 'Fake Blog',
+    author: 'Fake Author',
+    likes: 2,
+    url: 'google.com'
+  }
+
+  const mockHandler = jest.fn()
+
+  const { container } = render(<Blog blog={blog} incrementLikes={mockHandler}/>)
+
+  const user = userEvent.setup()
+  const button = container.querySelector('.likeButton')
+  await user.click(button)
+  await user.click(button)
+
+  expect(mockHandler.mock.calls).toHaveLength(2)
 })
 

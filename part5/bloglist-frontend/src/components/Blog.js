@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import blogService from '../services/blogs'
 
-const Blog = ({ blog, user, removeBlog }) => {
+const Blog = ({ blog, user, removeBlog, incrementLikes }) => {
   const [visible, setVisible] = useState(false)
   const [likes, setLikes] = useState(blog.likes)
 
@@ -20,16 +19,9 @@ const Blog = ({ blog, user, removeBlog }) => {
     setVisible(!visible)
   }
 
-  const incrementLikes = (event) => {
+  const handleLike = (event) => {
     event.preventDefault()
-    const updatedBlog={
-      user: blog.user.id,
-      likes: likes+1,
-      author: blog.author,
-      title: blog.title,
-      url: blog.url
-    }
-    blogService.update(updatedBlog, blog.id)
+    incrementLikes(blog)
     setLikes(likes+1)
   }
 
@@ -48,7 +40,7 @@ const Blog = ({ blog, user, removeBlog }) => {
         {visible === false ? 'view' : 'hide'}
       </button>
       <div style={showWhenVisible} className="url">{blog.url}</div>
-      <div style={showWhenVisible} className="likes">likes {likes} <button onClick={incrementLikes}>like</button></div>
+      <div style={showWhenVisible} className="likes">likes {likes} <button onClick={handleLike} className="likeButton">like</button></div>
       <div className="author">{blog.author}</div>
       {user && user.username === blog.user.username ?
         <button onClick={handleRemove}>remove</button> :
