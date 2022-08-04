@@ -23,29 +23,32 @@ const Blogform = props => {
     <Toggleable buttonLabel="new blog" ref={blogFormRef}>
       <form onSubmit={newPost}>
         <div>
-                    Title:
+          Title:
           <input
             type="text"
             value={title}
             name="Title"
+            placeholder='Blog title...'
             onChange={({ target }) => setTitle(target.value)}
           />
         </div>
         <div>
-                    Author:
+          Author:
           <input
             type="text"
             value={author}
             name="Author"
+            placeholder='Blog author...'
             onChange={({ target }) => setAuthor(target.value)}
           />
         </div>
         <div>
-                    Url:
+          Url:
           <input
             type="text"
             value={url}
             name="Url"
+            placeholder='Blog url...'
             onChange={({ target }) => setUrl(target.value)}
           />
         </div>
