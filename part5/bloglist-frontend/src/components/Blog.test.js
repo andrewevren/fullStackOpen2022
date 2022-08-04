@@ -1,12 +1,13 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
 
 describe('blog display', () => {
   let container
 
-  beforeAll(() => {
+  beforeEach(() => {
     const blog = {
       title: 'Fake Blog',
       author: 'Fake Author',
@@ -28,6 +29,17 @@ describe('blog display', () => {
     expect(author).not.toHaveStyle( 'display: none' )
     expect(likes).toHaveStyle( 'display: none' )
     expect(url).toHaveStyle( 'display: none' )
+  })
+
+  test('blog renders likes and url after button is clicked', async () => {
+    const user = userEvent.setup()
+    const button = screen.getByText('view')
+    await user.click(button)
+
+    const likes = container.querySelector('.likes')
+    const url = container.querySelector('.url')
+    expect(likes).not.toHaveStyle( 'display: none' )
+    expect(url).not.toHaveStyle( 'display: none' )
   })
 })
 
