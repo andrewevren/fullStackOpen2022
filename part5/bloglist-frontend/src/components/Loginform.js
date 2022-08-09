@@ -1,5 +1,5 @@
 const Loginform = ({ username, handleNameChange, password, handlePasswordChange, handleLogin }) => (
-  <form onSubmit={handleLogin}>
+  <form onSubmit={handleLogin} id='login'>
     <h2>log in to application</h2>
     <div>
         username
