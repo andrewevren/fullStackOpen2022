@@ -5,6 +5,7 @@ const Loginform = ({ username, handleNameChange, password, handlePasswordChange,
         username
       <input
         type="text"
+        id='username'
         value={username}
         name="Username"
         onChange={handleNameChange}
@@ -14,12 +15,13 @@ const Loginform = ({ username, handleNameChange, password, handlePasswordChange,
         password
       <input
         type="password"
+        id='password'
         value={password}
         name="Password"
         onChange={handlePasswordChange}
       />
     </div>
-    <button type="submit">Login</button>
+    <button id='login-button' type="submit">Login</button>
   </form>
 )
 
