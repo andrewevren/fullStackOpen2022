@@ -26,6 +26,7 @@ const Blogform = props => {
           Title:
           <input
             type="text"
+            id="title"
             value={title}
             name="Title"
             placeholder='Blog title...'
@@ -36,6 +37,7 @@ const Blogform = props => {
           Author:
           <input
             type="text"
+            id="author"
             value={author}
             name="Author"
             placeholder='Blog author...'
@@ -46,13 +48,14 @@ const Blogform = props => {
           Url:
           <input
             type="text"
+            id="url"
             value={url}
             name="Url"
             placeholder='Blog url...'
             onChange={({ target }) => setUrl(target.value)}
           />
         </div>
-        <button type="submit">create</button>
+        <button type="submit" id= "create-button">create</button>
       </form>
     </Toggleable>
   )
