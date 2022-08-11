@@ -42,7 +42,7 @@ describe('Blog app', function() {
       })
     })
 
-    it('A blog can be created', function() {
+    it('a blog can be created', function() {
       cy.contains('new blog').click()
       cy.get('#title').type('Test blog')
       cy.get('#author').type('Test Testerson')
@@ -50,6 +50,23 @@ describe('Blog app', function() {
       cy.get('#create-button').click()
 
       cy.contains('Test blog')
+    })
+
+    describe('and a blog exists', function () {
+      beforeEach(function() {
+        cy.contains('new blog').click()
+        cy.get('#title').type('Likeable blog')
+        cy.get('#author').type('Like Testerson')
+        cy.get('#url').type('google.com')
+        cy.get('#create-button').click()
+      })
+
+      it('a blog can be liked', function () {
+        cy.contains('Likeable blog').parent().as('theBlog')
+        cy.get('@theBlog').contains('view').click()
+        cy.get('@theBlog').contains('like').click()
+        cy.get('@theBlog').contains('1')
+      })
     })
   })
 })
