@@ -52,6 +52,17 @@ describe('Blog app', function() {
       cy.contains('Test blog')
     })
 
+    it.only('a blog can be deleted by its creator', function() {
+      cy.contains('new blog').click()
+      cy.get('#title').type('Test blog')
+      cy.get('#author').type('Test Testerson')
+      cy.get('#url').type('google.com')
+      cy.get('#create-button').click()
+      cy.contains('Test blog').parent().contains('view').click()
+      cy.contains('Test blog').parent().contains('remove').click()
+      cy.get('html').should('not.contain', 'Test blog')
+    })
+
     describe('and a blog exists', function () {
       beforeEach(function() {
         cy.contains('new blog').click()
@@ -61,7 +72,7 @@ describe('Blog app', function() {
         cy.get('#create-button').click()
       })
 
-      it('a blog can be liked', function () {
+      it('a blog can be liked', function() {
         cy.contains('Likeable blog').parent().as('theBlog')
         cy.get('@theBlog').contains('view').click()
         cy.get('@theBlog').contains('like').click()
