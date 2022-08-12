@@ -5,6 +5,8 @@ const App = () => {
   const anecdotes = useSelector(state => state)
   const dispatch = useDispatch()
 
+  const anecdotesByVotes = anecdotes.sort((a,b) => b.votes - a.votes)
+
   const addAnecdote = (event) => {
     event.preventDefault()
     const content = event.target.anecdote.value
@@ -19,7 +21,7 @@ const App = () => {
   return (
     <div>
       <h2>Anecdotes</h2>
-      {anecdotes.map(anecdote =>
+      {anecdotesByVotes.map(anecdote =>
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
