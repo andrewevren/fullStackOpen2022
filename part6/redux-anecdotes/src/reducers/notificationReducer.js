@@ -20,8 +20,12 @@ const notificationSlice = createSlice({
 export const setNotification = (notification,time) => {
   return dispatch => {
     dispatch(writeNotification(notification))
+<<<<<<< HEAD
     timeout && clearTimeout(timeout)
     timeout = setTimeout(()=>dispatch(removeNotification()),time*1000)
+=======
+    setTimeout(()=>dispatch(removeNotification()),time*1000)
+>>>>>>> origin/main
   }
 }
 
