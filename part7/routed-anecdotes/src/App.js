@@ -51,9 +51,9 @@ const Footer = () => (
 const CreateNew = (props) => {
   const navigate = useNavigate()
 
-  const content = useField('text')
-  const author = useField('text')
-  const info = useField('text')
+  const {reset:contentReset, ...content} = useField('text')
+  const {reset:authorReset, ...author} = useField('text')
+  const {reset:infoReset, ...info} = useField('text')
 
 
   const handleSubmit = (e) => {
@@ -65,6 +65,13 @@ const CreateNew = (props) => {
       votes: 0
     })
     navigate('/')
+  }
+
+  const handleReset = (e) => {
+    e.preventDefault()
+    contentReset()
+    authorReset()
+    infoReset()
   }
 
   return (
@@ -83,7 +90,8 @@ const CreateNew = (props) => {
           url for more info
           <input {...info} />
         </div>
-        <button>create</button>
+        <button type="submit">create</button>
+        <button onClick={handleReset}>reset</button>
       </form>
     </div>
   )
