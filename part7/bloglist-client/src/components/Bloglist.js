@@ -1,9 +1,15 @@
-import Blog from './Blog'
-import Blogform from './Blogform'
+import Blog from "./Blog";
+import Blogform from "./Blogform";
 
-
-const Bloglist = ({ blogs, user, handleLogout, submitPost, removeBlog, incrementLikes }) => {
-  const blogsByLikes = blogs.sort((a,b) => a.likes - b.likes)
+const Bloglist = ({
+  blogs,
+  user,
+  handleLogout,
+  submitPost,
+  removeBlog,
+  incrementLikes,
+}) => {
+  const blogsByLikes = blogs.sort((a, b) => a.likes - b.likes);
 
   return (
     <div>
@@ -13,11 +19,18 @@ const Bloglist = ({ blogs, user, handleLogout, submitPost, removeBlog, increment
         <button onClick={handleLogout}>logout</button>
       </p>
       <h2>create new</h2>
-      <Blogform submitPost={submitPost}/>
-      {blogsByLikes.map(blog =>
-        <Blog key={blog.id} blog={blog} user={user} removeBlog={removeBlog} incrementLikes={incrementLikes}/>
-      )}
+      <Blogform submitPost={submitPost} />
+      {blogsByLikes.map((blog) => (
+        <Blog
+          key={blog.id}
+          blog={blog}
+          user={user}
+          removeBlog={removeBlog}
+          incrementLikes={incrementLikes}
+        />
+      ))}
     </div>
-  )}
+  );
+};
 
-export default Bloglist
+export default Bloglist;

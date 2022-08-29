@@ -1,28 +1,36 @@
-const Loginform = ({ username, handleNameChange, password, handlePasswordChange, handleLogin }) => (
-  <form onSubmit={handleLogin} id='login'>
+const Loginform = ({
+  username,
+  handleNameChange,
+  password,
+  handlePasswordChange,
+  handleLogin,
+}) => (
+  <form onSubmit={handleLogin} id="login">
     <h2>log in to application</h2>
     <div>
-        username
+      username
       <input
         type="text"
-        id='username'
+        id="username"
         value={username}
         name="Username"
         onChange={handleNameChange}
       />
     </div>
     <div>
-        password
+      password
       <input
         type="password"
-        id='password'
+        id="password"
         value={password}
         name="Password"
         onChange={handlePasswordChange}
       />
     </div>
-    <button id='login-button' type="submit">Login</button>
+    <button id="login-button" type="submit">
+      Login
+    </button>
   </form>
-)
+);
 
-export default Loginform
+export default Loginform;
