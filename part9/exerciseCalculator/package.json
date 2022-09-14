@@ -1,0 +1,11 @@
+{
+  "name": "exercisecalculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "bmiCalculator": "ts-node bmiCalculator.ts"
+  },
+  "author": "Andrew Evren",
+  "license": "ISC"
+}
