@@ -40,4 +40,4 @@ try {
   console.log(errorMessage);
 }
 
-export {}
+export default bmiCalculator
