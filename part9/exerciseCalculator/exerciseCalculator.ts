@@ -1,3 +1,20 @@
+interface Arguments {
+  target: number,
+  hours: Array<number>
+}
+
+const parseArguments = (args: Array<string>): Arguments => {
+  if (args.length < 4) throw new Error('Not enough arguments')
+  if (args.slice(2).every(e => !isNaN(Number(e)))) {
+    return {
+      target: Number(args[2]),
+      hours: args.slice(3).map(e => Number(e))
+    }
+  } else {
+    throw new Error('Provided values were not arguments')
+  }
+}
+
 interface Result {
   periodLength: number,
   trainingDays: number,
@@ -8,7 +25,7 @@ interface Result {
   average: number
 }
 
-const calculateExercises = (hours: Array<number>, target: number): Result => {
+const calculateExercises = (target: number, hours: Array<number>): Result => {
   const periodLength: number = hours.length
   const totalHours: number = hours.reduce((a,b)=>a+b,0)
   const average: number = totalHours/periodLength
@@ -36,4 +53,15 @@ const calculateExercises = (hours: Array<number>, target: number): Result => {
   })
 }
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1],2))
+try {
+  const {target, hours} = parseArguments(process.argv)
+  console.log(calculateExercises(target,hours))
+} catch (error: unknown) {
+  let errorMessage = 'Something bad happened.'
+  if (error instanceof Error) {
+    errorMessage += ' Error: ' + error.message;
+  }
+  console.log(errorMessage);
+}
+
+export {}
