@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "bmiCalculator": "ts-node bmiCalculator.ts"
+    "bmiCalculator": "ts-node bmiCalculator.ts",
+    "calculateExercises": "ts-node exerciseCalculator.ts"
   },
   "author": "Andrew Evren",
   "license": "ISC"
